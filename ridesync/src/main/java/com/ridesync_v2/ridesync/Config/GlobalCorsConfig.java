@@ -16,7 +16,7 @@ public class GlobalCorsConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         // ✅ Allow frontend origin
-        config.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+        config.setAllowedOrigins(Arrays.asList("http://localhost:5174"));
 
         // ✅ Allow methods
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
