@@ -3,8 +3,8 @@
 /* ---- Global Styling ---- */
 body {
   font-family: "Poppins", sans-serif;
-  background-color: #f8f9fa;
-  color: #222;
+  background-color: #fff;
+  color: #f5f5f5;
   margin: 0;
   padding: 0;
   min-height: 100vh;
@@ -12,8 +12,7 @@ body {
 
 /* ---- Navbar ---- */
 .navbar {
-  /* background: linear-gradient(90deg, #092436 52%, #bb0023 ); */
-  background: linear-gradient(270deg, #bb0023 , #212121 52%);
+  background: linear-gradient(270deg, #bb0023, #212121 52%);
   border-bottom: 2px solid #ff4500;
 }
 
@@ -36,11 +35,46 @@ body {
   transform: translateY(-2px);
 }
 
+/* ---- About Me ---- */
+.about-wrapper {
+  display: flex;
+  align-items: flex-start; /* Push content to top */
+  justify-content: center;
+  min-height: calc(100vh - 180px);
+  padding-top: 80px; /* Add spacing from navbar */
+}
+
+
+.about-card {
+  background: rgba(25, 25, 25, 0.95);
+  border: 1px solid rgba(255, 123, 0, 0.3);
+  border-radius: 18px;
+  box-shadow: 0 0 25px rgba(255, 123, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.about-card:hover {
+  box-shadow: 0 0 35px rgba(255, 123, 0, 0.3);
+}
+
+/* Profile Image */
+.about-img {
+  border: 3px solid #00bfff; /* Sky blue border */
+  box-shadow: 0 0 20px rgba(0, 191, 255, 0.4);
+  transition: 0.4s ease-in-out;
+}
+
+.about-img:hover {
+  box-shadow: 0 0 35px rgba(0, 191, 255, 0.8);
+  transform: scale(1.05);
+}
+
 /* ---- Table / View Page ---- */
 .table {
-  background-color: #ffffff;
+  background-color: #1e1e1e;
   border-radius: 10px;
   overflow: hidden;
+  color: #fff;
 }
 
 .table thead {
@@ -50,7 +84,7 @@ body {
 }
 
 .table tbody tr:hover {
-  background-color: #fff3e0;
+  background-color: #2c2c2c;
   transition: background 0.2s ease;
 }
 
@@ -59,184 +93,6 @@ body {
   border-radius: 8px;
 }
 
-.btn-outline-primary {
-  border-color: #ff7b00;
-  color: #ff7b00;
-}
-
-.btn-outline-primary:hover {
-  background-color: #ff7b00;
-  color: white;
-}
-
-/* ---- Footer ---- */
-footer {
-  background: linear-gradient(90deg, #343a40, #1a1a1a);
-  color: #ddd;
-  font-size: 0.9rem;
-}
-
-footer small {
-  color: #fff;
-  letter-spacing: 0.1cm;
-}
-
-footer a {
-  color: #ff7b00;
-  text-decoration: none;
-}
-
-footer a:hover {
-  text-decoration: underline;
-  color: #ffc107;
-}
-
-/* ---- Responsive Adjustments ---- */
-@media (max-width: 768px) {
-  .navbar-brand {
-    font-size: 1.2rem;
-  }
-
-  .table {
-    font-size: 0.9rem;
-  }
-
-  footer {
-    font-size: 0.8rem;
-  }
-}
-
-
-
-
-/* ---- Upload Record Page (RideSync Dark Theme) ---- */
-/* ---- Upload Record Page (RideSync Dark Theme) ---- */
-.upload-section {
-  min-height: calc(100vh - 160px); /* ensures space between navbar & footer */
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center; /* centers vertically */
-  color: #f8f9fa;
-  padding:0 2rem;
-  /* background: linear-gradient(180deg, #1a1a1a 30%, #111 100%); */
-}
-
-
-.upload-card {
-  background: rgba(25, 25, 25, 0.95);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 123, 0, 0.3);
-  border-radius: 16px;
-  box-shadow: 0 0 20px rgba(255, 123, 0, 0.1);
-  padding: 2rem 2.5rem;
-  width: 100%;
-  max-width: 850px;
-  animation: fadeInUp 0.8s ease;
-}
-
-.upload-card:hover {
-  box-shadow: 0 0 25px rgba(255, 123, 0, 0.2);
-}
-
-.upload-card h2 {
-  color: #ff7b00;
-  margin-bottom: 1.5rem;
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 1.2px;
-}
-
-/* Inputs */
-.dark-input {
-  background: #2b2b2b;
-  border: 1px solid #444;
-  border-radius: 8px;
-  color: #f8f9fa;
-  padding: 10px 12px;
-  font-size: 1rem;
-  width: 100%;
-  transition: all 0.3s ease;
-}
-
-.dark-input:focus {
-  border-color: #ff7b00;
-  box-shadow: 0 0 8px rgba(255, 123, 0, 0.6);
-  outline: none;
-}
-
-/* Button */
-.upload-btn {
-  background: linear-gradient(90deg, #ff7b00, #ff4500);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 12px;
-  width: 100%;
-  margin-top: 0.5rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.4s ease;
-}
-
-.upload-btn:hover {
-  background: linear-gradient(90deg, #ff006e, #ff7b00, #00f5d4);
-  box-shadow: 0 0 15px rgba(255, 123, 0, 0.7);
-  transform: translateY(-2px);
-}
-
-/* Alert messages */
-.upload-alert {
-  margin-top: 1rem;
-  padding: 10px 12px;
-  border-radius: 8px;
-  font-weight: 500;
-  text-align: center;
-  letter-spacing: 0.3px;
-}
-
-.upload-alert.success {
-  background: rgba(0, 255, 100, 0.1);
-  color: #00ff9c;
-  border: 1px solid #00ff9c;
-}
-
-.upload-alert.error {
-  background: rgba(255, 0, 0, 0.1);
-  color: #ff3c00;
-  border: 1px solid #ff3c00;
-}
-/* 🟠 Orange Accent Button Fix */
-.btn-primary,
-.btn-success,
-
-button {
-  background-color: #ff7b00 !important;
-  border: none !important;
-  color: #fff !important;
-  transition: all 0.3s ease-in-out !important;
-}
-
-.btn-primary:hover,
-.btn-success:hover,
-button:hover {
-  background-color: #ff9a3d !important;
-  box-shadow: 0 0 15px rgba(255, 123, 0, 0.6) !important;
-  transform: translateY(-2px);
-}
-
-.btn-primary:focus,
-.btn-success:focus,
-button:focus,
-.btn-primary:active,
-.btn-success:active,
-button:active {
-  background-color: #e06c00 !important;
-  box-shadow: 0 0 10px rgba(255, 123, 0, 0.7) !important;
-  outline: none !important;
-}
-
-/* 🔧 Fix Bootstrap's default active/focus blue for outline buttons */
 .btn-outline-primary {
   border-color: #ff7b00 !important;
   color: #ff7b00 !important;
@@ -259,6 +115,147 @@ button:active {
   outline: none !important;
 }
 
+/* 🟠 Orange Accent Button Fix */
+.btn-primary,
+.btn-success,
+button {
+  background-color: #ff7b00 !important;
+  border: none !important;
+  color: #fff !important;
+  transition: all 0.3s ease-in-out !important;
+}
+
+.btn-primary:hover,
+.btn-success:hover,
+button:hover {
+  background-color: #ff9a3d !important;
+  box-shadow: 0 0 15px rgba(255, 123, 0, 0.7) !important;
+  transform: translateY(-2px);
+}
+
+.btn-primary:focus,
+.btn-success:focus,
+button:focus,
+.btn-primary:active,
+.btn-success:active,
+button:active {
+  background-color: #e06c00 !important;
+  box-shadow: 0 0 10px rgba(255, 123, 0, 0.7) !important;
+  outline: none !important;
+}
+
+/* ---- Skills Badges ---- */
+.badge {
+  background-color: #2c2c2c !important;
+  color: #f8f9fa !important;
+  font-size: 0.9rem;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: default;
+  transition: all 0.4s ease-in-out;
+  border: 1px solid transparent;
+}
+
+/* 🌈 Multi-Color Hover Effect */
+.badge:hover {
+  background: linear-gradient(
+    90deg,
+    #ff7b00,
+    #ff006e,
+    #00f5d4,
+    #00bfff,
+    #f9ed69
+  );
+  background-size: 400%;
+  animation: colorShift 2s linear infinite;
+  color: #121212 !important;
+  font-weight: 600;
+  border: 1px solid #fff;
+  box-shadow: 0 0 10px rgba(255, 123, 0, 0.4);
+}
+
+@keyframes colorShift {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 400%;
+  }
+}
+
+/* ---- Upload Record Page ---- */
+.upload-section {
+  min-height: calc(100vh - 160px);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f8f9fa;
+  padding: 0 2rem;
+}
+
+.upload-card {
+  background: rgba(25, 25, 25, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 123, 0, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(255, 123, 0, 0.1);
+  padding: 2rem 2.5rem;
+  width: 100%;
+  max-width: 900px;
+  animation: fadeInUp 0.8s ease;
+}
+
+.upload-card:hover {
+  box-shadow: 0 0 25px rgba(255, 123, 0, 0.2);
+}
+
+.upload-card h2 {
+  color: #ff7b00;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+}
+
+/* Inputs */
+.dark-input {
+  background: #2b2b2b;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #f8f9fa;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.dark-input:focus {
+  border-color: #ff7b00;
+  box-shadow: 0 0 8px rgba(255, 123, 0, 0.6);
+  outline: none;
+}
+
+/* Submit Button */
+.upload-btn {
+  background: linear-gradient(90deg, #ff7b00, #ff4500);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.upload-btn:hover {
+  background: linear-gradient(90deg, #ff006e, #ff7b00, #00f5d4);
+  box-shadow: 0 0 15px rgba(255, 123, 0, 0.7);
+  transform: translateY(-2px);
+}
+
 /* Fade-in animation */
 @keyframes fadeInUp {
   from {
@@ -268,5 +265,46 @@ button:active {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* ---- Footer ---- */
+footer {
+  background: linear-gradient(90deg, #1a1a1a, #0d0d0d);
+  color: #ddd;
+  font-size: 0.9rem;
+  padding: 1rem 0;
+  text-align: center;
+  border-top: 1px solid rgba(255, 123, 0, 0.3);
+}
+
+footer small {
+  color: #fff;
+  letter-spacing: 0.05cm;
+}
+
+footer a {
+  color: #ff7b00;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+footer a:hover {
+  text-decoration: underline;
+  color: #00f5d4;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .about-card {
+    padding: 1.5rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.1rem;
+  }
+
+  footer {
+    font-size: 0.8rem;
   }
 }
