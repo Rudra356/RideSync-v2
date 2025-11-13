@@ -1,0 +1,272 @@
+/* 🎨 RideSync Custom Styles */
+
+/* ---- Global Styling ---- */
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f8f9fa;
+  color: #222;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* ---- Navbar ---- */
+.navbar {
+  /* background: linear-gradient(90deg, #092436 52%, #bb0023 ); */
+  background: linear-gradient(270deg, #bb0023 , #212121 52%);
+  border-bottom: 2px solid #ff4500;
+}
+
+.navbar-brand {
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: #ff7b00 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.nav-link {
+  color: #f8f9fa !important;
+  margin-right: 1rem;
+  transition: 0.3s;
+}
+
+.nav-link:hover {
+  color: #ff7b00 !important;
+  transform: translateY(-2px);
+}
+
+/* ---- Table / View Page ---- */
+.table {
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table thead {
+  background-color: #ff7b00;
+  color: white;
+  text-transform: uppercase;
+}
+
+.table tbody tr:hover {
+  background-color: #fff3e0;
+  transition: background 0.2s ease;
+}
+
+/* ---- Buttons ---- */
+.btn {
+  border-radius: 8px;
+}
+
+.btn-outline-primary {
+  border-color: #ff7b00;
+  color: #ff7b00;
+}
+
+.btn-outline-primary:hover {
+  background-color: #ff7b00;
+  color: white;
+}
+
+/* ---- Footer ---- */
+footer {
+  background: linear-gradient(90deg, #343a40, #1a1a1a);
+  color: #ddd;
+  font-size: 0.9rem;
+}
+
+footer small {
+  color: #fff;
+  letter-spacing: 0.1cm;
+}
+
+footer a {
+  color: #ff7b00;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+  color: #ffc107;
+}
+
+/* ---- Responsive Adjustments ---- */
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  .table {
+    font-size: 0.9rem;
+  }
+
+  footer {
+    font-size: 0.8rem;
+  }
+}
+
+
+
+
+/* ---- Upload Record Page (RideSync Dark Theme) ---- */
+/* ---- Upload Record Page (RideSync Dark Theme) ---- */
+.upload-section {
+  min-height: calc(100vh - 160px); /* ensures space between navbar & footer */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* centers vertically */
+  color: #f8f9fa;
+  padding:0 2rem;
+  /* background: linear-gradient(180deg, #1a1a1a 30%, #111 100%); */
+}
+
+
+.upload-card {
+  background: rgba(25, 25, 25, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 123, 0, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(255, 123, 0, 0.1);
+  padding: 2rem 2.5rem;
+  width: 100%;
+  max-width: 850px;
+  animation: fadeInUp 0.8s ease;
+}
+
+.upload-card:hover {
+  box-shadow: 0 0 25px rgba(255, 123, 0, 0.2);
+}
+
+.upload-card h2 {
+  color: #ff7b00;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+}
+
+/* Inputs */
+.dark-input {
+  background: #2b2b2b;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #f8f9fa;
+  padding: 10px 12px;
+  font-size: 1rem;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.dark-input:focus {
+  border-color: #ff7b00;
+  box-shadow: 0 0 8px rgba(255, 123, 0, 0.6);
+  outline: none;
+}
+
+/* Button */
+.upload-btn {
+  background: linear-gradient(90deg, #ff7b00, #ff4500);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  width: 100%;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.upload-btn:hover {
+  background: linear-gradient(90deg, #ff006e, #ff7b00, #00f5d4);
+  box-shadow: 0 0 15px rgba(255, 123, 0, 0.7);
+  transform: translateY(-2px);
+}
+
+/* Alert messages */
+.upload-alert {
+  margin-top: 1rem;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 0.3px;
+}
+
+.upload-alert.success {
+  background: rgba(0, 255, 100, 0.1);
+  color: #00ff9c;
+  border: 1px solid #00ff9c;
+}
+
+.upload-alert.error {
+  background: rgba(255, 0, 0, 0.1);
+  color: #ff3c00;
+  border: 1px solid #ff3c00;
+}
+/* 🟠 Orange Accent Button Fix */
+.btn-primary,
+.btn-success,
+
+button {
+  background-color: #ff7b00 !important;
+  border: none !important;
+  color: #fff !important;
+  transition: all 0.3s ease-in-out !important;
+}
+
+.btn-primary:hover,
+.btn-success:hover,
+button:hover {
+  background-color: #ff9a3d !important;
+  box-shadow: 0 0 15px rgba(255, 123, 0, 0.6) !important;
+  transform: translateY(-2px);
+}
+
+.btn-primary:focus,
+.btn-success:focus,
+button:focus,
+.btn-primary:active,
+.btn-success:active,
+button:active {
+  background-color: #e06c00 !important;
+  box-shadow: 0 0 10px rgba(255, 123, 0, 0.7) !important;
+  outline: none !important;
+}
+
+/* 🔧 Fix Bootstrap's default active/focus blue for outline buttons */
+.btn-outline-primary {
+  border-color: #ff7b00 !important;
+  color: #ff7b00 !important;
+  background-color: transparent !important;
+  transition: all 0.3s ease-in-out !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: #ff7b00 !important;
+  color: #fff !important;
+  box-shadow: 0 0 12px rgba(255, 123, 0, 0.6) !important;
+}
+
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+  background-color: #e06c00 !important;
+  border-color: #e06c00 !important;
+  color: #fff !important;
+  box-shadow: 0 0 10px rgba(255, 123, 0, 0.6) !important;
+  outline: none !important;
+}
+
+/* Fade-in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

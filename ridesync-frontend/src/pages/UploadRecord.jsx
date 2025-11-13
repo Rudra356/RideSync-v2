@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "../styles/custom.css";
 
 function UploadRecord() {
   const [form, setForm] = useState({
@@ -53,53 +54,121 @@ function UploadRecord() {
   };
 
   return (
-    <div className="container mt-4">
-      <h3 className="text-center mb-4">Add Maintenance Record</h3>
-      <form
-        onSubmit={handleSubmit}
-        className="p-4 border rounded bg-light shadow-sm"
-      >
-        {Object.entries(form).map(([key, value]) => (
-          <div className="mb-3" key={key}>
-            <label className="form-label text-capitalize">
-              {key.replace(/([A-Z])/g, " $1")}
-            </label>
-            <input
-              type={
-                key.toLowerCase().includes("price") ||
-                key.toLowerCase().includes("km")
-                  ? "number"
-                  : "text"
-              }
-              name={key}
-              value={value}
-              onChange={handleChange}
-              className="form-control"
-              required={
-                ["spareName", "RC", "brandModel", "price"].includes(key)
-              }
-            />
-          </div>
-        ))}
+    <div className="upload-section">
+      <div className="upload-card wide">
+        <h2> Add Maintenance Record</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="row">
+            <div className="col-md-5 mb-3">
+              <label className="form-label">Spare Name</label>
+              <input
+                type="text"
+                name="spareName"
+                value={form.spareName}
+                onChange={handleChange}
+                className="form-control dark-input"
+                required
+              />
+            </div>
 
-        <button
-          className="btn btn-success w-100"
-          type="submit"
-          disabled={loading}
-        >
-          {loading ? "Saving..." : "Save Record"}
-        </button>
+            <div className="col-md-3 mb-3">
+              <label className="form-label">RC</label>
+              <input
+                type="text"
+                name="RC"
+                value={form.RC}
+                onChange={handleChange}
+                className="form-control dark-input"
+                required
+              />
+            </div>
 
-        {message && (
-          <div
-            className={`alert mt-3 ${
-              message.includes("✅") ? "alert-success" : "alert-danger"
-            }`}
-          >
-            {message}
+            <div className="col-md-4 mb-3">
+              <label className="form-label">Brand / Model</label>
+              <input
+                type="text"
+                name="brandModel"
+                value={form.brandModel}
+                onChange={handleChange}
+                className="form-control dark-input"
+                required
+              />
+            </div>
+
+<div className="col-md-4 mb-3">
+              <label className="form-label">Price (₹)</label>
+              <input
+                type="number"
+                name="price"
+                value={form.price}
+                onChange={handleChange}
+                className="form-control dark-input"
+                required
+              />
+            </div>
+
+            <div className="col-md-4 mb-3">
+              <label className="form-label">Current KM</label>
+              <input
+                type="number"
+                name="currentKM"
+                value={form.currentKM}
+                onChange={handleChange}
+                className="form-control dark-input"
+              />
+            </div>
+
+            <div className="col-md-4 mb-3">
+              <label className="form-label">Upcoming Check-Up</label>
+              <input
+                type="number"
+                name="upcomingCheckUpKM"
+                value={form.upcomingCheckUpKM}
+                onChange={handleChange}
+                className="form-control dark-input"
+              />
+            </div>
+
+            <div className="col-md-8 mb-3">
+              <label className="form-label">Issue</label>
+              <input
+                type="text"
+                name="issue"
+                value={form.issue}
+                onChange={handleChange}
+                className="form-control dark-input"
+              />
+            </div>
+
+            
+
+            <div className="col-4 mb-3">
+              <label className="form-label">Extra Notes</label>
+              <textarea
+                name="extraNotes"
+                rows="3"
+                value={form.extraNotes}
+                onChange={handleChange}
+                className="form-control dark-input"
+              />
+            </div>
           </div>
-        )}
-      </form>
+
+          <button className="upload-btn w-100" type="submit" disabled={loading}>
+            {loading ? "⏳ Saving..." : "Save Record"}
+          </button>
+
+          {message && (
+            <div
+              className={`upload-alert ${
+                message.includes("✅") ? "success" : "error"
+              }`}
+            >
+              {message}
+            </div>
+          )}
+        </form>
+      </div>
     </div>
   );
 }
