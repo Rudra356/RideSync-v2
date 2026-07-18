@@ -17,7 +17,7 @@ public class MaintenanceController {
     @Autowired
     private MaintenanceService maintenanceService;
 
-    // ✅ Get paginated records (REST alternative)
+    // Get paginated records (REST alternative)
     @GetMapping("/{pageNumber}/{pageSize}")
     public ResponseEntity<List<Maintenance>> getAll(
             @PathVariable int pageNumber,
@@ -34,7 +34,7 @@ public class MaintenanceController {
         }
     }
 
-    // ✅ Create Record (POST)
+    // Create Record (POST)
     @PostMapping
     public ResponseEntity<Maintenance> createRecord(@RequestBody Maintenance maintenance) {
         try {
@@ -45,7 +45,7 @@ public class MaintenanceController {
         }
     }
 
-    // ✅ Update
+    // Update
     @PutMapping("/{id}")
     public ResponseEntity<Maintenance> updateRecord(
             @PathVariable String id,
@@ -54,7 +54,7 @@ public class MaintenanceController {
         return ResponseEntity.ok(updated);
     }
 
-    // ✅ Delete
+    // Delete
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRecord(@PathVariable String id) {
         maintenanceService.deleteRecord(id);
