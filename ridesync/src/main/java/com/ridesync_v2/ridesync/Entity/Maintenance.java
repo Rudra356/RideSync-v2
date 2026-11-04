@@ -15,7 +15,13 @@ import java.time.LocalDate;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Maintenance {
+public class Maintenance implements Comparable<Maintenance> {
+
+    @Override
+    public int compareTo(Maintenance maintenance) {
+        return this.getRC().length() - maintenance.getRC().length();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;

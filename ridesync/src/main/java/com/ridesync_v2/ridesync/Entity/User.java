@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class User implements Comparable<User> {
 
     @Id
     @Column(name = "User Id", updatable = false)
@@ -37,4 +37,8 @@ public class User {
     @Column(name = "Updated on")
     private LocalDateTime updatedAt;
 
+    @Override
+    public int compareTo(User u) {
+        return this.userName.length() - u.userName.length();
+    }
 }
