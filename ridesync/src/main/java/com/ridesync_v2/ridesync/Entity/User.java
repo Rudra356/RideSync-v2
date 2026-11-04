@@ -1,44 +1,67 @@
+
 package com.ridesync_v2.ridesync.Entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Data
 @Entity
-@AllArgsConstructor
+@Table(name = "users")
+@Getter
+@Setter
 @NoArgsConstructor
-public class User implements Comparable<User> {
+public class User {
 
     @Id
-    @Column(name = "User Id", updatable = false)
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "user_id", nullable = false, updatable = false)
     private String userId;
 
     @NotBlank
-    @Column(name = "Username", updatable = false)
+    @Email
+    @Size(max = 254)
+    @Column(name = "email", unique = true, length = 254)
+    private String email;
+
+    @Size(max = 100)
+    @Column(name = "username", length = 100)
     private String userName;
 
-    @NotBlank
-    @Column(name = "Password", updatable = true)
+    /*
+     * Null for accounts that authenticate exclusively through Google.
+     * Store only a BCrypt hash for password-based accounts.
+     */
+    @Column(name = "password_hash", length = 100)
     private String password;
 
-    @CreationTimestamp
-    @Column(name = "Created on")
+    @Column(name = "google_subject", unique = true, length = 255)
+    private String googleSubject;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @UpdateTimestamp
-    @Column(name = "Updated on")
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @Override
-    public int compareTo(User u) {
-        return this.userName.length() - u.userName.length();
+    @PrePersist
+    protected void onCreate() {
+        LocalDateTime now = LocalDateTime.now();
+
+        if (createdAt == null) {
+            createdAt = now;
+        }
+
+        updatedAt = now;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
     }
 }

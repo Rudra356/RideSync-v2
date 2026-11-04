@@ -1,60 +1,89 @@
+
 package com.ridesync_v2.ridesync.Controller;
 
 import com.ridesync_v2.ridesync.Entity.Maintenance;
 import com.ridesync_v2.ridesync.Service.MaintenanceService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:5173") // allow React app
 @RestController
 @RequestMapping("/api/maintenance")
 public class MaintenanceController {
 
-    @Autowired
-    private MaintenanceService maintenanceService;
+    private final MaintenanceService maintenanceService;
 
-    // Get paginated records (REST alternative)
+    public MaintenanceController(MaintenanceService maintenanceService) {
+        this.maintenanceService = maintenanceService;
+    }
+
+    public record MaintenanceResponse(
+            String id,
+            String spareName,
+            String RC,
+            String issue,
+            String brandModel,
+            Integer price,
+            Long currentKM,
+            LocalDate replacingDate,
+            Long upcomingCheckUpKM,
+            String extraNotes
+    ) {
+        public static MaintenanceResponse from(Maintenance maintenance) {
+            return new MaintenanceResponse(
+                    maintenance.getId(),
+                    maintenance.getSpareName(),
+                    maintenance.getRC(),
+                    maintenance.getIssue(),
+                    maintenance.getBrandModel(),
+                    maintenance.getPrice(),
+                    maintenance.getCurrentKM(),
+                    maintenance.getReplacingDate(),
+                    maintenance.getUpcomingCheckUpKM(),
+                    maintenance.getExtraNotes()
+            );
+        }
+    }
+
     @GetMapping("/{pageNumber}/{pageSize}")
-    public ResponseEntity<List<Maintenance>> getAll(
+    public ResponseEntity<List<MaintenanceResponse>> getAll(
             @PathVariable int pageNumber,
             @PathVariable int pageSize) {
-        try {
-            List<Maintenance> records = maintenanceService.getAll(pageNumber, pageSize);
-            if (!records.isEmpty()) {
-                return ResponseEntity.ok(records);
-            } else {
-                return ResponseEntity.noContent().build();
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("Error fetching records", e);
-        }
+
+        List<MaintenanceResponse> records =
+                maintenanceService.getAll(pageNumber, pageSize)
+                        .stream()
+                        .map(MaintenanceResponse::from)
+                        .toList();
+
+        return ResponseEntity.ok(records);
     }
 
-    // Create Record (POST)
     @PostMapping
-    public ResponseEntity<Maintenance> createRecord(@RequestBody Maintenance maintenance) {
-        try {
-            Maintenance saved = maintenanceService.createRecord(maintenance);
-            return ResponseEntity.status(HttpStatus.CREATED).body(saved);
-        } catch (Exception e) {
-            throw new RuntimeException("Record not created", e);
-        }
+    public ResponseEntity<MaintenanceResponse> createRecord(
+            @Valid @RequestBody Maintenance maintenance) {
+
+        Maintenance saved = maintenanceService.createRecord(maintenance);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(MaintenanceResponse.from(saved));
     }
 
-    // Update
     @PutMapping("/{id}")
-    public ResponseEntity<Maintenance> updateRecord(
+    public ResponseEntity<MaintenanceResponse> updateRecord(
             @PathVariable String id,
-            @RequestBody Maintenance maintenance) {
-        Maintenance updated = maintenanceService.updateRecord(maintenance, id);
-        return ResponseEntity.ok(updated);
+            @Valid @RequestBody Maintenance maintenance) {
+
+        Maintenance updated =
+                maintenanceService.updateRecord(id, maintenance);
+
+        return ResponseEntity.ok(MaintenanceResponse.from(updated));
     }
 
-    // Delete
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRecord(@PathVariable String id) {
         maintenanceService.deleteRecord(id);

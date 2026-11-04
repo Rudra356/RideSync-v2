@@ -1,35 +1,40 @@
+
 package com.ridesync_v2.ridesync.Entity;
 
-import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
-
+import java.util.List;
+import java.util.Objects;
 
 public class UserPrincipal implements UserDetails {
 
-    User user;
+    private final User user;
 
     public UserPrincipal(User user) {
-        this.user = user;
+        this.user = Objects.requireNonNull(user, "user must not be null");
+    }
+
+    public User getUser() {
+        return user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("USER"));
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
-    public @Nullable String getPassword() {
+    public String getPassword() {
         return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getUserName();
+        // Use email as the Spring Security login identifier.
+        return user.getEmail();
     }
 
     @Override
