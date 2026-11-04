@@ -106,6 +106,17 @@ public class SecurityConfig {
                         )
                 )
 
+                // API-friendly logout: return 204 instead of redirecting.
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID")
+                        .logoutSuccessHandler((request, response, authentication) -> {
+                            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+                        })
+                )
+                
                 // Custom error responses.
                 .exceptionHandling(exceptions -> exceptions
 

@@ -60,14 +60,14 @@ export function AuthProvider({ children }) {
   const register = async (email, userName, password) => {
     return await registerUser(email, userName, password);
   };
-
-  // Logout.
-  const logout = async () => {
+const logout = async () => {
+  try {
     await initializeCsrf();
     await api.post("/logout");
+  } finally {
     setUser(null);
-  };
-
+  }
+};
   const value = {
     user,
     loading,
