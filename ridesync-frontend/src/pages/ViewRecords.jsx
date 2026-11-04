@@ -11,6 +11,12 @@ function ViewRecords() {
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [retryKey, setRetryKey] = useState(0);
 
+  const [editing, setEditing] = useState(false);
+  const [formData, setFormData] = useState({});
+  const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [actionError, setActionError] = useState("");
+
   const size = 5;
 
   useEffect(() => {
@@ -26,7 +32,6 @@ function ViewRecords() {
         );
 
         const responseData = response.data;
-
         const fetchedRecords = Array.isArray(responseData)
           ? responseData
           : responseData?.content || [];
@@ -43,22 +48,16 @@ function ViewRecords() {
       } catch (err) {
         if (!active) return;
 
-        if (err.response?.status === 401) {
-          setError("Your session has expired. Please log in again.");
-        } else {
-          setError(
-            err.response?.data?.message ||
-            err.message ||
-            "Unable to load maintenance records."
-          );
-        }
+        setError(
+          err.response?.data?.message ||
+          err.message ||
+          "Unable to load maintenance records."
+        );
 
         setRecords([]);
         setHasNext(false);
       } finally {
-        if (active) {
-          setLoading(false);
-        }
+        if (active) setLoading(false);
       }
     };
 
@@ -129,16 +128,125 @@ function ViewRecords() {
     };
   }, [records]);
 
+  const closeModal = () => {
+    if (saving || deleting) return;
+
+    setSelectedRecord(null);
+    setEditing(false);
+    setActionError("");
+  };
+
+  const startEditing = () => {
+    setFormData({
+      spareName: selectedRecord.spareName ?? "",
+      RC: selectedRecord.rc ?? selectedRecord.RC ?? "",
+      issue: selectedRecord.issue ?? "",
+      brandModel: selectedRecord.brandModel ?? "",
+      price: selectedRecord.price ?? "",
+      currentKM: selectedRecord.currentKM ?? "",
+      replacingDate: selectedRecord.replacingDate ?? "",
+      upcomingCheckUpKM: selectedRecord.upcomingCheckUpKM ?? "",
+      extraNotes: selectedRecord.extraNotes ?? "",
+    });
+
+    setActionError("");
+    setEditing(true);
+  };
+
+  const handleFieldChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormData((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
+  };
+
+  const handleUpdate = async (event) => {
+    event.preventDefault();
+
+    if (!selectedRecord?.id) return;
+
+    setSaving(true);
+    setActionError("");
+
+    try {
+      const payload = {
+        ...formData,
+        price: formData.price === "" ? null : Number(formData.price),
+        currentKM:
+          formData.currentKM === "" ? null : Number(formData.currentKM),
+        upcomingCheckUpKM:
+          formData.upcomingCheckUpKM === ""
+            ? null
+            : Number(formData.upcomingCheckUpKM),
+      };
+
+      const response = await api.put(
+        `/api/maintenance/${selectedRecord.id}`,
+        payload
+      );
+
+      const updatedRecord = response.data;
+
+      setRecords((previous) =>
+        previous.map((record) =>
+          record.id === updatedRecord.id ? updatedRecord : record
+        )
+      );
+
+      setSelectedRecord(updatedRecord);
+      setEditing(false);
+    } catch (err) {
+      setActionError(
+        err.response?.data?.message ||
+        "Unable to update this record. Please try again."
+      );
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!selectedRecord?.id || deleting) return;
+
+    const confirmed = window.confirm(
+      `Delete "${selectedRecord.spareName || "this maintenance record"}"? This action cannot be undone.`
+    );
+
+    if (!confirmed) return;
+
+    setDeleting(true);
+    setActionError("");
+
+    try {
+      await api.delete(`/api/maintenance/${selectedRecord.id}`);
+
+      setSelectedRecord(null);
+      setEditing(false);
+
+      // Reload the current page after deletion.
+      setRetryKey((previous) => previous + 1);
+    } catch (err) {
+      setActionError(
+        err.response?.data?.message ||
+        "Unable to delete this record. Please try again."
+      );
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   const handleNext = () => {
     if (hasNext && !loading) {
-      setSelectedRecord(null);
+      closeModal();
       setPage((previous) => previous + 1);
     }
   };
 
   const handlePrev = () => {
     if (page > 0 && !loading) {
-      setSelectedRecord(null);
+      closeModal();
       setPage((previous) => previous - 1);
     }
   };
@@ -147,11 +255,20 @@ function ViewRecords() {
     setRetryKey((previous) => previous + 1);
   };
 
+  const inputFields = [
+    { name: "spareName", label: "Spare name", type: "text" },
+    { name: "RC", label: "Registration", type: "text" },
+    { name: "brandModel", label: "Vehicle model", type: "text" },
+    { name: "price", label: "Price (₹)", type: "number" },
+    { name: "currentKM", label: "Current KM", type: "number" },
+    { name: "replacingDate", label: "Replacing date", type: "date" },
+    { name: "upcomingCheckUpKM", label: "Upcoming check-up KM", type: "number" },
+    { name: "issue", label: "Issue description", type: "textarea" },
+    { name: "extraNotes", label: "Additional notes", type: "textarea" },
+  ];
+
   return (
     <div className="rs-records-page">
-
-      {/* Cinematic Hero */}
-
       <section className="rs-records-hero">
         <div className="rs-hero-decoration" />
 
@@ -186,8 +303,6 @@ function ViewRecords() {
         </div>
       </section>
 
-      {/* Statistics */}
-
       <section className="rs-records-overview">
         <div className="rs-section-heading">
           <div>
@@ -201,7 +316,6 @@ function ViewRecords() {
         </div>
 
         <div className="rs-stat-grid">
-
           <article className="rs-stat-card">
             <span className="rs-stat-label">RECORDS ON THIS PAGE</span>
             <strong className="rs-stat-value">
@@ -231,20 +345,15 @@ function ViewRecords() {
               Records with a future check-up KM
             </span>
           </article>
-
         </div>
       </section>
-
-      {/* Records */}
 
       <section className="rs-records-section">
         <div className="rs-records-heading">
           <div>
             <span className="rs-eyebrow">THE ARCHIVE</span>
             <h2>Service records</h2>
-            <p>
-              Your maintenance history, organised in one place.
-            </p>
+            <p>Your maintenance history, organised in one place.</p>
           </div>
 
           <div className="rs-record-count">
@@ -264,10 +373,7 @@ function ViewRecords() {
             <h3>Unable to retrieve records</h3>
             <p>{error}</p>
 
-            <button
-              className="rs-action-button"
-              onClick={handleRetry}
-            >
+            <button className="rs-action-button" onClick={handleRetry}>
               Try again
             </button>
           </div>
@@ -275,9 +381,7 @@ function ViewRecords() {
           <div className="rs-record-state">
             <span className="rs-state-symbol">—</span>
             <h3>Your archive begins here.</h3>
-            <p>
-              No maintenance records were found on this page.
-            </p>
+            <p>No maintenance records were found on this page.</p>
           </div>
         ) : (
           <div className="rs-table-frame">
@@ -308,39 +412,30 @@ function ViewRecords() {
                       <td className="rs-spare-cell">
                         {record.spareName || "—"}
                       </td>
-
-                      <td>
-                        {record.rc || record.RC || "—"}
-                      </td>
-
+                      <td>{record.rc || record.RC || "—"}</td>
                       <td className="rs-issue-cell">
                         {record.issue || "—"}
                       </td>
-
-                      <td>
-                        {record.brandModel || "—"}
-                      </td>
-
+                      <td>{record.brandModel || "—"}</td>
                       <td className="rs-price-cell">
                         {formatCurrency(record.price)}
                       </td>
-
                       <td>{formatNumber(record.currentKM)}</td>
-
                       <td>{formatDate(record.replacingDate)}</td>
-
                       <td className="rs-checkpoint-cell">
                         {formatNumber(record.upcomingCheckUpKM)}
                       </td>
-
                       <td className="rs-notes-cell">
                         {record.extraNotes || "—"}
                       </td>
-
                       <td>
                         <button
                           className="rs-view-button"
-                          onClick={() => setSelectedRecord(record)}
+                          onClick={() => {
+                            setSelectedRecord(record);
+                            setEditing(false);
+                            setActionError("");
+                          }}
                         >
                           Explore <span>↗</span>
                         </button>
@@ -352,8 +447,6 @@ function ViewRecords() {
             </div>
           </div>
         )}
-
-        {/* Pagination */}
 
         {!loading && !error && records.length > 0 && (
           <div className="rs-pagination">
@@ -384,13 +477,11 @@ function ViewRecords() {
         )}
       </section>
 
-      {/* Record Details Modal */}
-
       {selectedRecord && (
         <div
           className="rs-modal-backdrop"
           role="presentation"
-          onClick={() => setSelectedRecord(null)}
+          onClick={closeModal}
         >
           <div
             className="rs-detail-modal"
@@ -402,72 +493,169 @@ function ViewRecords() {
             <div className="rs-detail-header">
               <div>
                 <span className="rs-eyebrow">MAINTENANCE ARCHIVE</span>
-                <h2 id="rs-detail-title">Record details</h2>
+                <h2 id="rs-detail-title">
+                  {editing ? "Edit record" : "Record details"}
+                </h2>
               </div>
 
               <button
                 className="rs-detail-close"
-                onClick={() => setSelectedRecord(null)}
+                onClick={closeModal}
                 aria-label="Close details"
+                disabled={saving || deleting}
               >
                 ×
               </button>
             </div>
 
-            <div className="rs-detail-body">
-              <div className="rs-detail-identity">
-                <span>COMPONENT</span>
-                <h3>{selectedRecord.spareName || "Maintenance item"}</h3>
-                <p>
-                  {selectedRecord.brandModel || "Vehicle not specified"}
-                </p>
-              </div>
+            {editing ? (
+              <form onSubmit={handleUpdate}>
+                <div className="rs-detail-body">
+                  <div className="rs-detail-grid">
+                    {inputFields.map((field) => (
+                      <div className="rs-detail-item" key={field.name}>
+                        <label htmlFor={`edit-${field.name}`}>
+                          {field.label}
+                        </label>
 
-              <div className="rs-detail-grid">
-                {[
-                  ["Record ID", selectedRecord.id],
-                  ["Registration", selectedRecord.rc || selectedRecord.RC],
-                  ["Price", formatCurrency(selectedRecord.price)],
-                  ["Current KM", formatNumber(selectedRecord.currentKM)],
-                  ["Replacing date", formatDate(selectedRecord.replacingDate)],
-                  ["Upcoming check-up", formatNumber(selectedRecord.upcomingCheckUpKM)],
-                ].map(([label, value]) => (
-                  <div className="rs-detail-item" key={label}>
-                    <span>{label}</span>
-                    <strong>{value ?? "—"}</strong>
+                        {field.type === "textarea" ? (
+                          <textarea
+                            id={`edit-${field.name}`}
+                            className="form-control"
+                            name={field.name}
+                            value={formData[field.name]}
+                            onChange={handleFieldChange}
+                            rows={3}
+                          />
+                        ) : (
+                          <input
+                            id={`edit-${field.name}`}
+                            className="form-control"
+                            type={field.type}
+                            name={field.name}
+                            value={formData[field.name]}
+                            onChange={handleFieldChange}
+                            min={field.type === "number" ? 0 : undefined}
+                            step={field.name === "price" ? "1" : "1"}
+                          />
+                        )}
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
 
-              <div className="rs-detail-description">
-                <span>ISSUE DESCRIPTION</span>
-                <p>
-                  {selectedRecord.issue || "No issue description provided."}
-                </p>
-              </div>
+                  {actionError && (
+                    <div className="alert alert-danger mt-3">
+                      {actionError}
+                    </div>
+                  )}
+                </div>
 
-              <div className="rs-detail-description">
-                <span>ADDITIONAL NOTES</span>
-                <p>
-                  {selectedRecord.extraNotes || "No additional notes."}
-                </p>
-              </div>
-            </div>
+                <div className="rs-detail-footer">
+                  <span>RIDESYNC V2</span>
 
-            <div className="rs-detail-footer">
-              <span>RIDESYNC V2</span>
+                  <div className="d-flex gap-2">
+                    <button
+                      type="button"
+                      className="rs-page-button"
+                      onClick={() => {
+                        setEditing(false);
+                        setActionError("");
+                      }}
+                      disabled={saving}
+                    >
+                      Cancel
+                    </button>
 
-              <button
-                className="rs-action-button"
-                onClick={() => setSelectedRecord(null)}
-              >
-                Close record
-              </button>
-            </div>
+                    <button
+                      type="submit"
+                      className="rs-action-button"
+                      disabled={saving}
+                    >
+                      {saving ? "Saving..." : "Save changes"}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            ) : (
+              <>
+                <div className="rs-detail-body">
+                  <div className="rs-detail-identity">
+                    <span>COMPONENT</span>
+                    <h3>{selectedRecord.spareName || "Maintenance item"}</h3>
+                    <p>
+                      {selectedRecord.brandModel || "Vehicle not specified"}
+                    </p>
+                  </div>
+
+                  <div className="rs-detail-grid">
+                    {[
+                      ["Record ID", selectedRecord.id],
+                      ["Registration", selectedRecord.rc || selectedRecord.RC],
+                      ["Price", formatCurrency(selectedRecord.price)],
+                      ["Current KM", formatNumber(selectedRecord.currentKM)],
+                      ["Replacing date", formatDate(selectedRecord.replacingDate)],
+                      ["Upcoming check-up", formatNumber(selectedRecord.upcomingCheckUpKM)],
+                    ].map(([label, value]) => (
+                      <div className="rs-detail-item" key={label}>
+                        <span>{label}</span>
+                        <strong>{value ?? "—"}</strong>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="rs-detail-description">
+                    <span>ISSUE DESCRIPTION</span>
+                    <p>
+                      {selectedRecord.issue || "No issue description provided."}
+                    </p>
+                  </div>
+
+                  <div className="rs-detail-description">
+                    <span>ADDITIONAL NOTES</span>
+                    <p>
+                      {selectedRecord.extraNotes || "No additional notes."}
+                    </p>
+                  </div>
+
+                  {actionError && (
+                    <div className="alert alert-danger mt-3">
+                      {actionError}
+                    </div>
+                  )}
+                </div>
+
+                <div className="rs-detail-footer">
+                  <span>RIDESYNC V2</span>
+
+                  <div className="d-flex gap-2 flex-wrap">
+                    <button
+                      className="rs-page-button"
+                      onClick={startEditing}
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      className="btn btn-outline-danger"
+                      onClick={handleDelete}
+                      disabled={deleting}
+                    >
+                      {deleting ? "Deleting..." : "Delete"}
+                    </button>
+
+                    <button
+                      className="rs-action-button"
+                      onClick={closeModal}
+                    >
+                      Close record
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
-
     </div>
   );
 }

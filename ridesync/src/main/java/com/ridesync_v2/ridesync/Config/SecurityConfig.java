@@ -116,7 +116,7 @@ public class SecurityConfig {
                             response.setStatus(HttpServletResponse.SC_NO_CONTENT);
                         })
                 )
-                
+
                 // Custom error responses.
                 .exceptionHandling(exceptions -> exceptions
 
