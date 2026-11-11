@@ -67,6 +67,7 @@ function Navbar() {
           >
             <ul className="navbar-nav ms-auto align-items-lg-center rs-nav-list">
 
+              {/* Public Navigation */}
               <li className="nav-item">
                 <NavLink
                   className={navLinkClass}
@@ -77,6 +78,7 @@ function Navbar() {
                 </NavLink>
               </li>
 
+              {/* Authenticated Navigation */}
               {!loading && isAuthenticated && (
                 <>
                   <li className="nav-item">
@@ -99,15 +101,28 @@ function Navbar() {
                     </NavLink>
                   </li>
 
+                  <li className="nav-item">
+                    <NavLink
+                      className={navLinkClass}
+                      to="/account/security"
+                      onClick={closeMenu}
+                    >
+                      Account Security
+                    </NavLink>
+                  </li>
+
+                  {/* Account Information */}
                   <li className="nav-item rs-account">
                     <span className="rs-account-label">
                       SIGNED IN AS
                     </span>
+
                     <span className="rs-account-email">
                       {user?.email}
                     </span>
                   </li>
 
+                  {/* Logout */}
                   <li className="nav-item">
                     <button
                       type="button"
@@ -122,6 +137,7 @@ function Navbar() {
                 </>
               )}
 
+              {/* Unauthenticated Navigation */}
               {!loading && !isAuthenticated && (
                 <>
                   <li className="nav-item">
@@ -151,6 +167,7 @@ function Navbar() {
         </div>
       </nav>
 
+      {/* Logout Error */}
       {logoutError && (
         <div className="alert alert-danger mx-3 mt-2" role="alert">
           {logoutError}

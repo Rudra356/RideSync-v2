@@ -17,4 +17,10 @@
         boolean existsByEmailIgnoreCase(String email);
 
         boolean existsByUserName(String userName);
+
+        Optional<User> findByGithubSubject(String githubSubject);
+
+        boolean existsByGoogleSubject(String googleSubject);
+
+        boolean existsByGithubSubject(String githubSubject);
     }

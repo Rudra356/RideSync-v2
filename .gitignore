@@ -1,0 +1,7 @@
+.env
+.env.*
+!.env.example
+.env.backup
+
+# Local session cookies
+ridesync/ridesync-cookies.txt

@@ -39,7 +39,6 @@ function Login() {
 
   return (
     <main className="rs-login-page">
-
       <div className="rs-login-layout">
 
         {/* LEFT BRAND PANEL */}
@@ -81,7 +80,6 @@ function Login() {
             <span>EST. 2026</span>
           </div>
 
-          {/* Decorative graphic */}
           <div className="rs-login-decoration">
             <span>RS</span>
             <div />
@@ -111,9 +109,9 @@ function Login() {
 
             <div className="rs-login-divider" />
 
+            {/* EMAIL AND PASSWORD LOGIN */}
             <form onSubmit={handleSubmit}>
 
-              {/* EMAIL */}
               <div className="rs-login-field">
                 <label htmlFor="login-email">
                   EMAIL ADDRESS
@@ -130,7 +128,6 @@ function Login() {
                 />
               </div>
 
-              {/* PASSWORD */}
               <div className="rs-login-field">
                 <label htmlFor="login-password">
                   PASSWORD
@@ -147,7 +144,6 @@ function Login() {
                 />
               </div>
 
-              {/* ERROR */}
               {error && (
                 <div className="rs-login-error" role="alert">
                   <span>!</span>
@@ -155,7 +151,6 @@ function Login() {
                 </div>
               )}
 
-              {/* SUBMIT */}
               <button
                 type="submit"
                 className="rs-login-submit"
@@ -176,6 +171,36 @@ function Login() {
 
             </form>
 
+            {/* SOCIAL AUTHENTICATION */}
+            <div className="rs-login-social-divider">
+              <span />
+              <small>OR CONTINUE WITH</small>
+              <span />
+            </div>
+
+            <div className="rs-login-social-buttons">
+
+              <a
+                href="/oauth2/authorization/google"
+                className="rs-login-social-button"
+                aria-label="Continue with Google"
+              >
+                <span className="rs-google-icon">G</span>
+                Google
+              </a>
+
+              <a
+                href="/oauth2/authorization/github"
+                className="rs-login-social-button"
+                aria-label="Continue with GitHub"
+              >
+                <span className="rs-github-icon">GH</span>
+                GitHub
+              </a>
+
+            </div>
+
+            {/* REGISTRATION LINK */}
             <div className="rs-login-register">
               <span>Don't have an account?</span>
               <Link to="/register">
@@ -193,7 +218,6 @@ function Login() {
         </section>
 
       </div>
-
     </main>
   );
 }

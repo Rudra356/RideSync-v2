@@ -1,0 +1,9 @@
+.git
+**/.git
+**/node_modules
+**/target
+**/.env
+**/.env.*
+!**/.env.example
+**/*cookies*
+**/*.log

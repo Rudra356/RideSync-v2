@@ -42,6 +42,7 @@ function Register() {
       setTimeout(() => {
         navigate("/login", { replace: true });
       }, 1200);
+
     } catch (err) {
       setError(
         err.response?.data?.message ||
@@ -60,6 +61,7 @@ function Register() {
         <section className="rs-register-intro">
 
           <div className="rs-register-intro-content">
+
             <span className="rs-register-overline">
               ENGINEERED FOR THE ROAD
             </span>
@@ -75,6 +77,7 @@ function Register() {
               of your vehicle's maintenance history.
               Every service, every replacement, every detail.
             </p>
+
           </div>
 
           <div className="rs-register-intro-bottom">
@@ -84,12 +87,13 @@ function Register() {
 
         </section>
 
-        {/* RIGHT REGISTRATION FORM */}
+        {/* RIGHT REGISTRATION PANEL */}
         <section className="rs-register-form-panel">
 
           <div className="rs-register-card">
 
             <div className="rs-register-card-heading">
+
               <div className="rs-register-eyebrow">
                 <span />
                 NEW MEMBERSHIP
@@ -100,10 +104,12 @@ function Register() {
               <p>
                 Set up your account to get started with RideSync.
               </p>
+
             </div>
 
             <div className="rs-register-divider" />
 
+            {/* EMAIL AND PASSWORD REGISTRATION */}
             <form onSubmit={handleSubmit}>
 
               <div className="rs-register-field">
@@ -207,9 +213,41 @@ function Register() {
 
             </form>
 
+            {/* SOCIAL REGISTRATION */}
+            <div className="rs-register-social-divider">
+              <span />
+              <small>OR SIGN UP WITH</small>
+              <span />
+            </div>
+
+            <div className="rs-register-social-buttons">
+
+              <a
+                href="/oauth2/authorization/google"
+                className="rs-register-social-button"
+                aria-label="Sign up with Google"
+              >
+                <span className="rs-google-icon">G</span>
+                Google
+              </a>
+
+              <a
+                href="/oauth2/authorization/github"
+                className="rs-register-social-button"
+                aria-label="Sign up with GitHub"
+              >
+                <span className="rs-github-icon">GH</span>
+                GitHub
+              </a>
+
+            </div>
+
+            {/* LOGIN LINK */}
             <div className="rs-register-login">
               <span>Already have an account?</span>
-              <Link to="/login">Sign In ↗</Link>
+              <Link to="/login">
+                Sign In ↗
+              </Link>
             </div>
 
             <div className="rs-register-secure">

@@ -71,7 +71,6 @@ public class MaintenanceService {
         );
         existing.setExtraNotes(updatedMaintenance.getExtraNotes());
 
-        // Never accept an owner supplied in the request body.
         return maintenanceRepository.save(existing);
     }
 

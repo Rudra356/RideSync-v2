@@ -7,7 +7,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 public class GlobalCorsConfig {
@@ -18,25 +18,15 @@ public class GlobalCorsConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowedOrigins(
-                Arrays.asList("http://localhost:5173")
+                List.of("http://localhost:5173")
         );
 
         config.setAllowedMethods(
-                Arrays.asList(
-                        "GET",
-                        "POST",
-                        "PUT",
-                        "DELETE",
-                        "OPTIONS"
-                )
+                List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")
         );
 
         config.setAllowedHeaders(
-                Arrays.asList(
-                        "Content-Type",
-                        "X-XSRF-TOKEN",
-                        "Accept"
-                )
+                List.of("Content-Type", "X-XSRF-TOKEN", "Accept")
         );
 
         config.setAllowCredentials(true);

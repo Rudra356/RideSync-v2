@@ -1,4 +1,3 @@
-
 package com.ridesync_v2.ridesync.Entity;
 
 import jakarta.persistence.*;
@@ -42,6 +41,9 @@ public class User {
 
     @Column(name = "google_subject", unique = true, length = 255)
     private String googleSubject;
+
+    @Column(name = "github_subject", unique = true, length = 255)
+    private String githubSubject;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

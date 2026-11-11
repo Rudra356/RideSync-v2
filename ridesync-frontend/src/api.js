@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: "",
   withCredentials: true,
   withXSRFToken: true,
   xsrfCookieName: "XSRF-TOKEN",
@@ -34,7 +34,7 @@ export const loginUser = async (email, password) => {
 export const registerUser = async (email, userName, password) => {
   await initializeCsrf();
 
-  const response = await api.post("/register", {
+  const response = await api.post("/api/register", {
     email,
     userName,
     password,

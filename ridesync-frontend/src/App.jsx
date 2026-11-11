@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 import { AuthProvider, useAuth } from "./context/AuthContext";
-
+import AccountSecurity from "./pages/AccountSecurity";
 import ViewRecords from "./pages/ViewRecords";
 import UploadRecord from "./pages/UploadRecord";
 import AboutMe from "./pages/AboutMe";
@@ -48,6 +48,7 @@ function AppRoutes() {
             <Route path="/" element={<ViewRecords />} />
             <Route path="/view" element={<ViewRecords />} />
             <Route path="/upload" element={<UploadRecord />} />
+            <Route path="/account/security" element={<AccountSecurity />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />

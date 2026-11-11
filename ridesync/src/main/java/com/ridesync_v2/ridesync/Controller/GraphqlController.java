@@ -16,14 +16,11 @@ public class GraphqlController {
 
     @Autowired
     private MaintenanceService maintenanceService;
-
-    // ✅ Paginated Fetch
     @QueryMapping("getAllPaginated")
     public List<Maintenance> getAllPaginated(@Argument int page, @Argument int size) {
         return maintenanceService.getAll(page, size);
     }
 
-    // ✅ Find by ID
     @QueryMapping("getById")
     public Maintenance getById(@Argument String id) {
         return maintenanceService.getById(id);

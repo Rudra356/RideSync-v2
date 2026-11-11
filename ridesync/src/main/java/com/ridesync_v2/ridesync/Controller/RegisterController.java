@@ -3,13 +3,15 @@ package com.ridesync_v2.ridesync.Controller;
 
 import com.ridesync_v2.ridesync.Entity.User;
 import com.ridesync_v2.ridesync.Service.UserService;
+
 import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/register")
+@RequestMapping("/api/register")
 public class RegisterController {
 
     private final UserService userService;

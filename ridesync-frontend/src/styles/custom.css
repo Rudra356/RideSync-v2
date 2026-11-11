@@ -1,8 +1,3 @@
-
-/* =========================================================
-   RIDESYNC V2 — LUXURY AUTOMOTIVE DESIGN SYSTEM
-   ========================================================= */
-
 /* 01. DESIGN TOKENS */
 
 :root {
@@ -3925,38 +3920,39 @@ textarea:focus-visible {
   }
 }
 
-
-
 /* =========================================
-   RIDESYNC V2 — FOOTER
+   RIDESYNC V2 — RESPONSIVE FOOTER
    ========================================= */
 
 .rs-footer {
-  position: fixed;
-  z-index: 1030;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  position: relative;
+  z-index: 1;
   width: 100%;
-  min-height: 56px;
+  flex-shrink: 0;
+  margin-top: auto;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 24px;
+
+  padding: 16px 24px;
+
   color: #a9adaf;
   background: #242728;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.12);
+
   box-sizing: border-box;
 }
 
 .rs-footer-inner {
   width: 100%;
   max-width: 1450px;
+
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+
   gap: 10px 17px;
 }
 
@@ -4006,11 +4002,11 @@ textarea:focus-visible {
 
 @media (max-width: 760px) {
   .rs-footer {
-    padding: 11px 16px;
+    padding: 13px 16px;
   }
 
   .rs-footer-inner {
-    gap: 5px 12px;
+    gap: 6px 12px;
   }
 
   .rs-footer-credit {
@@ -4023,12 +4019,11 @@ textarea:focus-visible {
 
 @media (max-width: 480px) {
   .rs-footer {
-    min-height: 62px;
-    padding: 9px 12px;
+    padding: 12px 12px;
   }
 
   .rs-footer-inner {
-    gap: 3px 9px;
+    gap: 5px 9px;
   }
 
   .rs-footer-name {
@@ -4042,5 +4037,364 @@ textarea:focus-visible {
 
   .rs-footer-divider {
     height: 11px;
+  }
+}
+/* SOCIAL AUTHENTICATION */
+
+.rs-login-social-divider,
+.rs-register-social-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0 16px;
+}
+
+.rs-login-social-divider span,
+.rs-register-social-divider span {
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.rs-login-social-divider small,
+.rs-register-social-divider small {
+  color: #82909a;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+}
+
+.rs-login-social-buttons,
+.rs-register-social-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.rs-login-social-button,
+.rs-register-social-button {
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.025);
+  color: #e8e3db;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.rs-login-social-button:hover,
+.rs-register-social-button:hover {
+  border-color: #df9844;
+  background: rgba(223, 152, 68, 0.08);
+  color: #e5a04e;
+}
+
+.rs-google-icon {
+  font-size: 19px;
+  font-weight: 700;
+  color: #4285f4;
+}
+
+.rs-github-icon {
+  font-size: 12px;
+  font-weight: 800;
+  color: #f0f0f0;
+  letter-spacing: -1px;
+}
+
+@media (max-width: 380px) {
+  .rs-login-social-buttons,
+  .rs-register-social-buttons {
+    grid-template-columns: 1fr;
+  }
+}
+/* =========================================================
+   ACCOUNT SECURITY
+   ========================================================= */
+
+.rs-security-page {
+  width: min(1100px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 65px 0 90px;
+  color: var(--rs-white);
+  animation: rsFadeUp 0.6s ease both;
+}
+
+.rs-security-header {
+  margin-bottom: 42px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--rs-border);
+}
+
+.rs-security-eyebrow {
+  display: inline-block;
+  margin-bottom: 13px;
+  color: var(--rs-orange);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+}
+
+.rs-security-header h1 {
+  margin: 0 0 12px;
+  color: var(--rs-white);
+  font-size: clamp(2.2rem, 5vw, 3.3rem);
+  font-weight: 400;
+  letter-spacing: -1.5px;
+}
+
+.rs-security-header p {
+  margin: 0;
+  color: var(--rs-muted);
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.rs-security-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.rs-security-card {
+  min-width: 0;
+  padding: 30px;
+  background: var(--rs-surface);
+  border: 1px solid var(--rs-border);
+  box-shadow: var(--rs-shadow);
+  transition: border-color var(--rs-transition);
+}
+
+.rs-security-card:hover {
+  border-color: var(--rs-border-accent);
+}
+
+.rs-security-card-heading {
+  margin-bottom: 25px;
+}
+
+.rs-security-card-heading > span {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--rs-orange);
+  font-size: 0.67rem;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+}
+
+.rs-security-card-heading h2 {
+  margin: 0;
+  color: var(--rs-white);
+  font-size: 1.55rem;
+  font-weight: 400;
+}
+
+.rs-security-card-heading p {
+  margin: 12px 0 0;
+  color: var(--rs-muted);
+  font-size: 0.84rem;
+  line-height: 1.8;
+}
+
+.rs-security-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 17px 0;
+  border-top: 1px solid var(--rs-border);
+}
+
+.rs-security-info span {
+  color: var(--rs-subtle);
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.rs-security-info strong {
+  overflow-wrap: anywhere;
+  color: var(--rs-white);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.rs-security-provider {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 18px 0;
+  border-top: 1px solid var(--rs-border);
+}
+
+.rs-security-provider > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rs-security-provider strong {
+  color: var(--rs-white);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.rs-security-provider > div span {
+  color: var(--rs-muted);
+  font-size: 0.76rem;
+}
+
+.rs-security-status {
+  flex-shrink: 0;
+  padding: 7px 10px;
+  font-size: 0.59rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  border: 1px solid;
+}
+
+.rs-security-status.connected {
+  color: var(--rs-cyan);
+  border-color: rgba(128, 203, 211, 0.35);
+  background: rgba(128, 203, 211, 0.06);
+}
+
+.rs-security-status.disconnected {
+  color: var(--rs-muted);
+  border-color: var(--rs-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.rs-security-password-card {
+  grid-column: 1 / -1;
+}
+
+.rs-security-password-card form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.rs-security-field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+}
+
+.rs-security-field label {
+  color: var(--rs-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.rs-security-field input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 15px;
+  color: var(--rs-white);
+  background: #111619;
+  border: 1px solid var(--rs-border);
+  border-radius: var(--rs-radius);
+  outline: none;
+  font-family: inherit;
+  font-size: 0.85rem;
+  transition: border-color var(--rs-transition),
+              box-shadow var(--rs-transition);
+}
+
+.rs-security-field input::placeholder {
+  color: var(--rs-subtle);
+}
+
+.rs-security-field input:focus {
+  border-color: var(--rs-orange);
+  box-shadow: 0 0 0 3px rgba(217, 154, 82, 0.09);
+}
+
+.rs-security-submit {
+  grid-column: 1 / -1;
+  width: fit-content;
+  min-width: 190px;
+  min-height: 48px;
+  padding: 12px 22px;
+  color: #17191a;
+  background: var(--rs-orange);
+  border: 1px solid var(--rs-orange);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 1.3px;
+  cursor: pointer;
+  transition: all var(--rs-transition);
+}
+
+.rs-security-submit:hover:not(:disabled) {
+  color: var(--rs-orange);
+  background: transparent;
+}
+
+.rs-security-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.rs-security-feedback {
+  grid-column: 1 / -1;
+  padding: 13px 15px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.rs-security-feedback.error {
+  color: #f0a0a0;
+  background: rgba(220, 70, 70, 0.08);
+  border: 1px solid rgba(220, 70, 70, 0.3);
+}
+
+.rs-security-feedback.success {
+  color: var(--rs-cyan);
+  background: rgba(128, 203, 211, 0.07);
+  border: 1px solid rgba(128, 203, 211, 0.3);
+}
+
+@media (max-width: 700px) {
+  .rs-security-page {
+    width: calc(100% - 32px);
+    padding: 42px 0 65px;
+  }
+
+  .rs-security-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .rs-security-password-card {
+    grid-column: auto;
+  }
+
+  .rs-security-card {
+    padding: 23px 19px;
+  }
+
+  .rs-security-password-card form {
+    grid-template-columns: 1fr;
+  }
+
+  .rs-security-submit {
+    width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .rs-security-provider {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
