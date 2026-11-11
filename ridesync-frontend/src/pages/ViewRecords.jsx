@@ -1,5 +1,6 @@
 
 import React, { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import api from "../api";
 
 function ViewRecords() {
@@ -27,9 +28,7 @@ function ViewRecords() {
       setError("");
 
       try {
-        const response = await api.get(
-          `/api/maintenance/${page}/${size}`
-        );
+        const response = await api.get(`/api/maintenance/${page}/${size}`);
 
         const responseData = response.data;
         const fetchedRecords = Array.isArray(responseData)
@@ -225,7 +224,6 @@ function ViewRecords() {
       setSelectedRecord(null);
       setEditing(false);
 
-      // Reload the current page after deletion.
       setRetryKey((previous) => previous + 1);
     } catch (err) {
       setActionError(
@@ -262,13 +260,18 @@ function ViewRecords() {
     { name: "price", label: "Price (₹)", type: "number" },
     { name: "currentKM", label: "Current KM", type: "number" },
     { name: "replacingDate", label: "Replacing date", type: "date" },
-    { name: "upcomingCheckUpKM", label: "Upcoming check-up KM", type: "number" },
+    {
+      name: "upcomingCheckUpKM",
+      label: "Upcoming check-up KM",
+      type: "number",
+    },
     { name: "issue", label: "Issue description", type: "textarea" },
     { name: "extraNotes", label: "Additional notes", type: "textarea" },
   ];
 
   return (
     <div className="rs-records-page">
+      {/* MAINTENANCE HERO */}
       <section className="rs-records-hero">
         <div className="rs-hero-decoration" />
 
@@ -303,6 +306,41 @@ function ViewRecords() {
         </div>
       </section>
 
+      {/* RIDESYNC AI PROMOTIONAL CARD */}
+      <section className="rs-ai-promo">
+        <div className="rs-ai-promo-content">
+          <span className="rs-ai-promo-eyebrow">
+            <span />
+            RIDESYNC INTELLIGENCE
+          </span>
+
+          <h2>
+            Meet your vehicle's
+            <br />
+            <span>new co-driver.</span>
+          </h2>
+
+          <p>
+            Get maintenance guidance, troubleshoot vehicle issues,
+            explore technical specifications and research automotive
+            topics with RideSync AI.
+          </p>
+
+          <Link to="/ai-assistant" className="rs-ai-promo-button">
+            Explore AI Assistant <span>↗</span>
+          </Link>
+        </div>
+
+        <div className="rs-ai-promo-visual">
+          <div className="rs-ai-promo-orbit">
+            <div className="rs-ai-promo-core">RS</div>
+          </div>
+
+          <span className="rs-ai-promo-index">AI / 01</span>
+        </div>
+      </section>
+
+      {/* MAINTENANCE OVERVIEW */}
       <section className="rs-records-overview">
         <div className="rs-section-heading">
           <div>
@@ -348,6 +386,7 @@ function ViewRecords() {
         </div>
       </section>
 
+      {/* SERVICE RECORDS */}
       <section className="rs-records-section">
         <div className="rs-records-heading">
           <div>
@@ -477,6 +516,7 @@ function ViewRecords() {
         )}
       </section>
 
+      {/* RECORD DETAILS MODAL */}
       {selectedRecord && (
         <div
           className="rs-modal-backdrop"
@@ -536,7 +576,7 @@ function ViewRecords() {
                             value={formData[field.name]}
                             onChange={handleFieldChange}
                             min={field.type === "number" ? 0 : undefined}
-                            step={field.name === "price" ? "1" : "1"}
+                            step="1"
                           />
                         )}
                       </div>
@@ -594,7 +634,10 @@ function ViewRecords() {
                       ["Price", formatCurrency(selectedRecord.price)],
                       ["Current KM", formatNumber(selectedRecord.currentKM)],
                       ["Replacing date", formatDate(selectedRecord.replacingDate)],
-                      ["Upcoming check-up", formatNumber(selectedRecord.upcomingCheckUpKM)],
+                      [
+                        "Upcoming check-up",
+                        formatNumber(selectedRecord.upcomingCheckUpKM),
+                      ],
                     ].map(([label, value]) => (
                       <div className="rs-detail-item" key={label}>
                         <span>{label}</span>

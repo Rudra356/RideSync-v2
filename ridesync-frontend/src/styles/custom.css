@@ -4398,3 +4398,236 @@ textarea:focus-visible {
     flex-direction: column;
   }
 }
+
+
+
+/* AI CARD */
+
+/* =========================================
+   RIDESYNC AI PROMOTIONAL CARD
+========================================= */
+
+.rs-ai-promo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  min-height: 290px;
+  margin: 34px 0 58px;
+  padding: 42px 52px;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(
+      circle at 82% 48%,
+      rgba(128, 203, 211, 0.12),
+      transparent 30%
+    ),
+    linear-gradient(115deg, #191e21 0%, #20282b 58%, #172124 100%);
+  border: 1px solid var(--rs-border);
+  border-radius: 8px;
+}
+
+.rs-ai-promo::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -130px;
+  right: 16%;
+  width: 300px;
+  height: 300px;
+  border: 1px solid rgba(128, 203, 211, 0.10);
+  border-radius: 50%;
+}
+
+.rs-ai-promo-content {
+  position: relative;
+  z-index: 2;
+  max-width: 590px;
+}
+
+.rs-ai-promo-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  color: var(--rs-cyan);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2.4px;
+}
+
+.rs-ai-promo-eyebrow > span {
+  width: 7px;
+  height: 7px;
+  background: var(--rs-cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(128, 203, 211, 0.65);
+}
+
+.rs-ai-promo h2 {
+  margin: 0 0 16px;
+  color: var(--rs-white);
+  font-size: clamp(27px, 3.5vw, 42px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -1.5px;
+}
+
+.rs-ai-promo h2 span {
+  color: var(--rs-orange-light);
+}
+
+.rs-ai-promo-content > p {
+  max-width: 490px;
+  margin: 0 0 25px;
+  color: var(--rs-muted);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.rs-ai-promo-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+  padding: 13px 18px;
+  color: #17191a;
+  background: var(--rs-orange);
+  border: 1px solid var(--rs-orange);
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-decoration: none;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.rs-ai-promo-button:hover {
+  color: #17191a;
+  background: var(--rs-orange-light);
+  border-color: var(--rs-orange-light);
+  transform: translateY(-2px);
+}
+
+.rs-ai-promo-button span {
+  font-size: 17px;
+}
+
+.rs-ai-promo-visual {
+  position: relative;
+  display: grid;
+  flex: 0 0 220px;
+  min-height: 200px;
+  place-items: center;
+}
+
+.rs-ai-promo-orbit {
+  position: relative;
+  display: grid;
+  width: 160px;
+  height: 160px;
+  place-items: center;
+  border: 1px solid rgba(128, 203, 211, 0.35);
+  border-radius: 50%;
+  box-shadow:
+    0 0 35px rgba(128, 203, 211, 0.06),
+    inset 0 0 35px rgba(128, 203, 211, 0.04);
+}
+
+.rs-ai-promo-orbit::before,
+.rs-ai-promo-orbit::after {
+  content: "";
+  position: absolute;
+  border: 1px solid rgba(217, 154, 82, 0.3);
+  border-radius: 50%;
+}
+
+.rs-ai-promo-orbit::before {
+  inset: 14px -13px;
+  transform: rotate(-35deg);
+}
+
+.rs-ai-promo-orbit::after {
+  inset: -13px 14px;
+  transform: rotate(35deg);
+}
+
+.rs-ai-promo-core {
+  display: grid;
+  width: 76px;
+  height: 76px;
+  place-items: center;
+  color: var(--rs-cyan);
+  background: #172124;
+  border: 1px solid rgba(128, 203, 211, 0.5);
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  box-shadow: 0 0 28px rgba(128, 203, 211, 0.12);
+}
+
+.rs-ai-promo-index {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  color: var(--rs-subtle);
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .rs-ai-promo {
+    min-height: auto;
+    margin: 25px 0 42px;
+    padding: 30px 25px;
+  }
+
+  .rs-ai-promo-visual {
+    flex-basis: 150px;
+    min-height: 160px;
+  }
+
+  .rs-ai-promo-orbit {
+    width: 120px;
+    height: 120px;
+  }
+
+  .rs-ai-promo-core {
+    width: 62px;
+    height: 62px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 560px) {
+  .rs-ai-promo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 28px 22px;
+  }
+
+  .rs-ai-promo-content {
+    width: 100%;
+  }
+
+  .rs-ai-promo-visual {
+    align-self: flex-end;
+    min-height: 125px;
+    margin-top: -10px;
+  }
+
+  .rs-ai-promo-orbit {
+    width: 105px;
+    height: 105px;
+  }
+
+  .rs-ai-promo-index {
+    right: 0;
+    bottom: -5px;
+  }
+}

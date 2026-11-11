@@ -10,6 +10,7 @@ import {
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import AccountSecurity from "./pages/AccountSecurity";
 import ViewRecords from "./pages/ViewRecords";
+import AiAssistant from "./pages/AiAssistant";
 import UploadRecord from "./pages/UploadRecord";
 import AboutMe from "./pages/AboutMe";
 import Login from "./pages/Login";
@@ -49,6 +50,7 @@ function AppRoutes() {
             <Route path="/view" element={<ViewRecords />} />
             <Route path="/upload" element={<UploadRecord />} />
             <Route path="/account/security" element={<AccountSecurity />} />
+            <Route path="/ai-assistant" element={<AiAssistant />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
