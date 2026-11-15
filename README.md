@@ -132,7 +132,7 @@ For production, configure secrets and OAuth callback URLs through the hosting pr
 ## Author
 
 **Rudra Naskar**  
-BCA Graduate | Backend-focused Java Developer
+BCA [ 2023 - 2027 ] | Backend-focused Java Developer
 
 - GitHub: https://github.com/Rudra356
 
