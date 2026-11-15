@@ -12,13 +12,13 @@ A full-stack vehicle care and maintenance management application for organizing 
 ### Landing page
 ![RideSync landing page](assets/landing-page.png)
 
-### Maintenance overview
+### AI Assistant
 ![Maintenance overview](assets/maintenance-overview.png)
 
 ### Maintenance record details
 ![Maintenance record details](assets/record-details.png)
 
-### AI Assistant
+### Maintenance overview
 ![RideSync AI Assistant](assets/ai-assistant.png)
 
 ### Authentication
